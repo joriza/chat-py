@@ -7,12 +7,13 @@ messages = []
 HTML_TEMPLATE = """<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile Profile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>MiniChat</title>
-    <meta http-equiv="refresh" content="15">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="15" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
-<body style="font-family:sans-serif;background-color:#eee;padding:2px;margin:0;font-size:12px;">
-    <div style="{{ container_style }};margin:0 auto;background-color:#fff;min-height:100vh;border-left:1px solid #ccc;border-right:1px solid #ccc;">
+<body style="font-family:sans-serif;background-color:#eee;padding:0;margin:0;font-size:12px;">
+    <div style="{{ container_style }};margin:0 auto;background-color:#fff;border-left:1px solid #ccc;border-right:1px solid #ccc;">
         
         <div style="background-color:#333;color:#fff;padding:8px;text-align:center;">
             <strong style="font-size:14px;">MiniChat</strong><br/>
@@ -32,8 +33,8 @@ HTML_TEMPLATE = """<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile Profile 
             </ul>   
         </div>
 
-        <form method="POST" action="/" style="margin:10px 5px;text-align:center;border-top:1px solid #ddd;padding-top:10px;">
-            <input name="msg" type="text" style="width:70%;font-size:14px;border:1px solid #999;" maxlength="100" />
+        <form method="POST" action="/" style="margin:10px 0;text-align:center;border-top:1px solid #ddd;padding-top:10px;">
+            <input name="msg" type="text" style="width:65%;font-size:14px;border:1px solid #999;" maxlength="100" />
             <input type="submit" value="Enviar" style="font-size:14px;padding:2px 10px;background-color:#eee;" />
         </form>
         
@@ -44,6 +45,7 @@ HTML_TEMPLATE = """<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile Profile 
 </body>
 </html>
 """
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
