@@ -27,9 +27,11 @@ HTML_TEMPLATE = """<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile Profile 
                 {% endif %}
                 {% for msg in messages %}
                     <li style="border-bottom:1px solid #eee;padding:6px 0;word-wrap:break-word;">
-                        <span style="color:#666;font-weight:bold;">&raquo;</span> {{ msg }}
+                        <span style="color:#888;font-size:9px;">[{{ msg.time }}]</span>
+                        <span style="color:#666;font-weight:bold;">&raquo;</span> {{ msg.text }}
                     </li>
                 {% endfor %}
+
             </ul>   
         </div>
 
@@ -52,9 +54,12 @@ def index():
     if request.method == 'POST':
         msg = request.form.get('msg', '').strip()
         if msg:
-            messages.insert(0, msg)
+            from datetime import datetime
+            now = datetime.now().strftime('%H:%M')
+            messages.insert(0, {'text': msg, 'time': now})
             while len(messages) > 10:
                 messages.pop()
+
     
     ua = request.headers.get('User-Agent', '')
     
