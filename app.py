@@ -3,11 +3,43 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Length
 import threading
+import sqlite3
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'poc-secret-key-change-in-prod'  # Cambiar en producción
 
-messages = []
+DB_FILE = 'chat.db'
+
+def init_db():
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    c.execute('''CREATE TABLE IF NOT EXISTS messages (
+                 id INTEGER PRIMARY KEY,
+                 user TEXT NOT NULL,
+                 text TEXT NOT NULL,
+                 time TEXT NOT NULL)''')
+    conn.commit()
+    conn.close()
+
+def load_messages():
+    if not os.path.exists(DB_FILE):
+        init_db()
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    c.execute('SELECT user, text, time FROM messages ORDER BY id DESC LIMIT 10')
+    rows = c.fetchall()
+    conn.close()
+    return [{'user': row[0], 'text': row[1], 'time': row[2]} for row in rows]
+
+def save_message(user, text, time_str):
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    c.execute('INSERT INTO messages (user, text, time) VALUES (?, ?, ?)', (user, text, time_str))
+    conn.commit()
+    conn.close()
+
+messages = load_messages()
 messages_lock = threading.Lock()
 
 class LoginForm(FlaskForm):
@@ -66,6 +98,7 @@ def compose():
                 messages.insert(0, {'text': msg, 'time': now, 'user': user})
                 while len(messages) > 10:
                     messages.pop()
+            save_message(user, msg, now)
         return redirect('/')
     
     ua = request.headers.get('User-Agent', '')
