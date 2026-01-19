@@ -2,24 +2,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>MiniChat - Escribir</title>
+    <title>MiniChat - Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body style="font-family:sans-serif;background-color:#eee;padding:0;margin:0;font-size:12px;">
     <div style="{{ container_style }};margin:0 auto;background-color:#fff;border-left:1px solid #ccc;border-right:1px solid #ccc;min-height:150px;">
         <div style="background-color:#333;color:#fff;padding:8px;text-align:center;">
-            <strong style="font-size:14px;">Nuevo Mensaje</strong>
+            <strong style="font-size:14px;">Bienvenido a MiniChat</strong>
         </div>
 
-        <form method="POST" action="/compose" style="margin:20px 10px;text-align:center;">
+        <form method="POST" action="/login" style="margin:20px 10px;text-align:center;">
             {{ form.csrf_token() }}
-            {{ form.msg.label }}<br/>
-            {{ form.msg(style="width:90%;font-size:16px;border:1px solid #999;padding:5px;resize:vertical;", rows=3) }}
-            <div style="margin-top:15px;">
-                {{ form.submit(style="font-size:14px;padding:8px 20px;background-color:#28a745;color:#fff;border:none;font-weight:bold;") }}
-                <br/><br/>
-                <a href="/login" style="color:#666;font-size:12px;">Cambiar nombre</a> | <a href="/" style="color:#666;font-size:12px;">Volver</a>
-            </div>
+            {{ form.user.label }}<br/>
+            {{ form.user(style="width:90%;font-size:16px;border:1px solid #999;padding:5px;margin-bottom:10px;") }}<br/>
+            {{ form.submit(style="font-size:14px;padding:8px 20px;background-color:#28a745;color:#fff;border:none;font-weight:bold;") }}
         </form>
     </div>
 </body>

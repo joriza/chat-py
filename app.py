@@ -10,8 +10,11 @@ app.config['SECRET_KEY'] = 'poc-secret-key-change-in-prod'  # Cambiar en producc
 messages = []
 messages_lock = threading.Lock()
 
+class LoginForm(FlaskForm):
+    user = StringField('Nombre', validators=[DataRequired(), Length(max=20)])
+    submit = SubmitField('ENTRAR')
+
 class ComposeForm(FlaskForm):
-    user = StringField('Nombre (opcional)', validators=[Length(max=20)])
     msg = TextAreaField('Mensaje', validators=[DataRequired(), Length(max=100)])
     submit = SubmitField('ENVIAR')
 
@@ -38,12 +41,24 @@ def index():
                                  container_style=container_style, 
                                  ua_info=ua_info)
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        session['user'] = form.user.data.strip()
+        return redirect('/compose')
+    ua = request.headers.get('User-Agent', '')
+    container_style, _ = get_device_info(ua)
+    return render_template('login.html', form=form, container_style=container_style)
+
 @app.route('/compose', methods=['GET', 'POST'])
 def compose():
+    if 'user' not in session:
+        return redirect('/login')
     form = ComposeForm()
     if form.validate_on_submit():
         msg = form.msg.data.strip()
-        user = form.user.data.strip() if form.user.data else session.get('user', 'Anónimo')
+        user = session['user']
         if msg:
             from datetime import datetime
             now = datetime.now().strftime('%H:%M')
