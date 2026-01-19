@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile Profile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>MiniChat - Ver</title>
+    <meta http-equiv="refresh" content="15" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body style="font-family:sans-serif;background-color:#eee;padding:0;margin:0;font-size:12px;">
+    <div style="{{ container_style }};margin:0 auto;background-color:#fff;border-left:1px solid #ccc;border-right:1px solid #ccc;">
+        
+        <div style="background-color:#333;color:#fff;padding:8px;text-align:center;">
+            <strong style="font-size:14px;">MiniChat</strong><br/>
+            <span style="font-size:9px;color:#ccc;">{{ ua_info }}</span>
+        </div>
+        
+        <div style="padding:10px;text-align:center;border-bottom:1px solid #ddd;">
+             <a href="/compose" style="background-color:#007bff;color:#fff;padding:5px 15px;text-decoration:none;font-weight:bold;border-radius:3px;display:inline-block;">+ ESCRIBIR</a>
+        </div>
+
+        <div style="padding:5px;">
+            <ul style="list-style-type:none;padding:0;margin:0;">
+                {% if not messages %}
+                    <li style="color:#999;text-align:center;padding:20px;">Sin mensajes.</li>
+                {% endif %}
+                {% for msg in messages %}
+                    <li style="border-bottom:1px solid #eee;padding:6px 0;word-wrap:break-word;">
+                        <span style="color:#888;font-size:9px;">[{{ msg.time }}]</span>
+                        <span style="color:#666;font-weight:bold;">&raquo;</span> {{ msg.text }}
+                    </li>
+                {% endfor %}
+            </ul>   
+        </div>
+        
+        <div style="font-size:10px;color:#999;text-align:center;padding:10px;border-top:1px solid #ddd;">
+            Actualizando cada 15s... | Historial: 10
+        </div>
+    </div>
+</body>
+</html>
