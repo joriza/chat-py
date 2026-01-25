@@ -48,7 +48,14 @@ if st.sidebar.button("Guardar configuración"):
 
 # Entrada del usuario
 st.header("Chat con el modelo LLM")
-user_input = st.text_input("Escribe tu mensaje:")
+user_input = st.text_area(
+    "Escribe tu mensaje:", 
+    height=50, 
+    max_chars=500, 
+    placeholder="Escribe aquí tu mensaje...",
+    on_change=lambda: st.session_state.update(enter_pressed=True),
+    key="user_input"
+)
 
 # Actualizar la función query_llm para aceptar max_tokens como parámetro
 def query_llm_with_tokens(prompt, max_tokens):
@@ -70,8 +77,8 @@ def query_llm_with_tokens(prompt, max_tokens):
         st.error(f"Error al consumir la API: {e}")
         return None
 
-# Botón para enviar el mensaje
-if st.button("Enviar"):
+# Botón para enviar el mensaje o usar Ctrl + Enter
+if st.button("Enviar") or st.session_state.get("enter_pressed", False):
     if user_input:
         if not api_url or not model_name:
             st.error("Por favor, configure la API URL y el Model Name en la barra lateral.")
