@@ -1,7 +1,7 @@
 import requests
 
 # URL de la API y modelo
-api_url = "http://192.168.1.11:1234/v1/completions"
+api_url = "http://127.0.0.1:1234/v1/completions"
 model_name = "liquid/lfm2-1.2b"
 
 # Función para consumir la API

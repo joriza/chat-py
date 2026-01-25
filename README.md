@@ -7,6 +7,8 @@ Este proyecto es una aplicación de chat basada en **Streamlit** que permite int
 - Configuración dinámica de la URL de la API y el nombre del modelo desde la barra lateral.
 - Ajuste del número máximo de tokens para controlar la longitud de las respuestas.
 - Respuestas en tiempo real del modelo.
+- Envío de mensajes con el botón "Enviar" o con la combinación de teclas `Ctrl + Enter`.
+- Casilla de texto que se ajusta dinámicamente para admitir múltiples líneas.
 
 ## Requisitos previos
 - Python 3.7 o superior.
@@ -43,14 +45,14 @@ Este proyecto es una aplicación de chat basada en **Streamlit** que permite int
 
 3. Configura la URL de la API y el nombre del modelo en la barra lateral si es necesario.
 
-4. Escribe un mensaje en el cuadro de texto y presiona el botón **Enviar** para recibir una respuesta del modelo.
+4. Escribe un mensaje en el cuadro de texto y presiona el botón **Enviar** o utiliza `Ctrl + Enter` para recibir una respuesta del modelo.
 
 ## Configuración
 La configuración de la aplicación se guarda en un archivo `config.json`. Este archivo contiene los siguientes valores predeterminados:
 
 ```json
 {
-    "api_url": "http://192.168.1.11:1234/v1/completions",
+    "api_url": "http://127.0.0.1:1234/v1/completions",
     "model_name": "liquid/lfm2-1.2b"
 }
 ```

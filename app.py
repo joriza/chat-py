@@ -5,8 +5,9 @@ import requests
 
 # Cargar configuración desde un archivo JSON con valores predeterminados
 def load_config():
+    # Actualizar la URL predeterminada en la configuración para seguir la convención de OpenAI
     default_config = {
-        "api_url": "http://192.168.1.11:1234/v1/completions",
+        "api_url": "http://127.0.0.1:1234/v1/completions",
         "model_name": "liquid/lfm2-1.2b"
     }
     try:
